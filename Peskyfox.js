@@ -3,7 +3,7 @@
  * Peskyfox                                                                 *
  * "Aquila non capit muscas"                                                *
  * priority: remove annoyances                                              *
- * version: 128                                                             *
+ * version: 126                                                             *
  * url: https://github.com/yokoffing/Betterfox                              *
  * credit: Some prefs are reproduced and adapted from the arkenfox project  *
  * credit urL: https://github.com/arkenfox/user.js                          *
@@ -105,6 +105,9 @@ user_pref("layout.css.prefers-color-scheme.content-override", 2);
 // PREF: prevent private windows being separate from normal windows in taskbar [WINDOWS] [FF106+]
 user_pref("browser.privateWindowSeparation.enabled", false);
 
+// PREF: reduce the size of the "private window" indicator in tab bar [FF106+]
+//user_pref("browser.privatebrowsing.enable-new-indicator", false); // REMOVED [FF119+]
+
 // PREF: show search bar [FF122+]
 // Mozilla has removed the search bar option from the settings window.
 //user_pref("browser.search.widget.inNavBar", true);
@@ -115,10 +118,7 @@ user_pref("browser.privateWindowSeparation.enabled", false);
 
 // PREF: Cookie Banner handling
 // [NOTE] Feature still enforces Total Cookie Protection to limit 3rd-party cookie tracking [1]
-// [1] https://github.com/mozilla/cookie-banner-rules-list/issues/33#issuecomment-1318460084
-// [2] https://phabricator.services.mozilla.com/D153642
-// [3] https://winaero.com/make-firefox-automatically-click-on-reject-all-in-cookie-banner-consent/
-// [4] https://docs.google.com/spreadsheets/d/1Nb4gVlGadyxix4i4FBDnOeT_eJp2Zcv69o-KfHtK-aA/edit#gid=0
+// [1] https://developer.mozilla.org/en-US/docs/Web/Text_fragments// [4] https://docs.google.com/spreadsheets/d/1Nb4gVlGadyxix4i4FBDnOeT_eJp2Zcv69o-KfHtK-aA/edit#gid=0
 // 2: reject banners if it is a one-click option; otherwise, fall back to the accept button to remove banner
 // 1: reject banners if it is a one-click option; otherwise, keep banners on screen
 // 0: disable all cookie banner handling
@@ -600,6 +600,3 @@ user_pref("layout.word_select.eat_space_to_next_word", false);
 
 // PREF: always underline links [FF120+]
 //user_pref("layout.css.always_underline_links", false); // DEFAULT
-
-// PREF: hide frequent sites on right-click of taskbar icon [WINDOWS?]
-//user_pref("browser.taskbar.lists.frequent.enabled", false);
