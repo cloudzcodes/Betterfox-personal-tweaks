@@ -3,7 +3,7 @@
  * Peskyfox                                                                 *
  * "Aquila non capit muscas"                                                *
  * priority: remove annoyances                                              *
- * version: 129                                                             *
+ * version: 133                                                             *
  * url: https://github.com/yokoffing/Betterfox                              *
  * credit: Some prefs are reproduced and adapted from the arkenfox project  *
  * credit urL: https://github.com/arkenfox/user.js                          *
@@ -65,14 +65,12 @@ user_pref("browser.aboutwelcome.enabled", false); // disable Intro screens
 // PREF: disable "What's New" toolbar icon [FF69+]
 //user_pref("browser.messaging-system.whatsNewPanel.enabled", false);
 
-// PREF: only show List All Tabs icon when needed
-// true=always show tab overflow dropdown (FF106+ default)
-// false=only display tab dropdown when there are too many tabs
-// [1] https://www.ghacks.net/2022/10/19/how-to-hide-firefoxs-list-all-tabs-icon/
-user_pref("browser.tabs.tabmanager.enabled", false);
+// PREF: new profile switcher
+user_pref("browser.profiles.enabled", true);
 
-// PREF: enable new screenshot tool [FF122+]
-//user_pref("screenshots.browser.component.enabled", true);
+// PREF: use native title bar buttons [LINUX]
+// [1] https://github.com/yokoffing/Betterfox/issues/320
+//user_pref("widget.gtk.non-native-titlebar-buttons.enabled", true);
 
 /****************************************************************************
  * SECTION: THEME ADJUSTMENTS                                              *
@@ -83,12 +81,6 @@ user_pref("toolkit.legacyUserProfileCustomizations.stylesheets", true);
 
 // PREF: add compact mode back to options
 user_pref("browser.compactmode.show", true);
-
-// PREF: remove focus indicator for links
-// [1] https://www.askvg.com/firefox-tip-restore-classic-dotted-outline-focus-indicator-for-links/
-user_pref("browser.display.focus_ring_on_anything", true); 
-user_pref("browser.display.focus_ring_style", 0);
-user_pref("browser.display.focus_ring_width", 0);
 
 // PREF: preferred color scheme for websites
 // [SETTING] General>Language and Appearance>Website appearance
@@ -109,13 +101,19 @@ user_pref("browser.privateWindowSeparation.enabled", false);
 // Mozilla has removed the search bar option from the settings window.
 //user_pref("browser.search.widget.inNavBar", true);
 
+// PREF: new tab page wallpapers
+//user_pref("browser.newtabpage.activity-stream.newtabWallpapers.v2.enabled", true); // [DEFAULT FF132+]
+
 /****************************************************************************
  * SECTION: COOKIE BANNER HANDLING                                         *
 ****************************************************************************/
 
 // PREF: Cookie Banner handling
 // [NOTE] Feature still enforces Total Cookie Protection to limit 3rd-party cookie tracking [1]
-// [1] https://developer.mozilla.org/en-US/docs/Web/Text_fragments// [4] https://docs.google.com/spreadsheets/d/1Nb4gVlGadyxix4i4FBDnOeT_eJp2Zcv69o-KfHtK-aA/edit#gid=0
+// [1] https://github.com/mozilla/cookie-banner-rules-list/issues/33#issuecomment-1318460084
+// [2] https://phabricator.services.mozilla.com/D153642
+// [3] https://winaero.com/make-firefox-automatically-click-on-reject-all-in-cookie-banner-consent/
+// [4] https://docs.google.com/spreadsheets/d/1Nb4gVlGadyxix4i4FBDnOeT_eJp2Zcv69o-KfHtK-aA/edit#gid=0
 // 2: reject banners if it is a one-click option; otherwise, fall back to the accept button to remove banner
 // 1: reject banners if it is a one-click option; otherwise, keep banners on screen
 // 0: disable all cookie banner handling
@@ -168,7 +166,6 @@ user_pref("full-screen-api.warning.timeout", 0); // default=3000
 //user_pref("gfx.font_rendering.cleartype_params.rendering_mode", 5);
 //user_pref("gfx.font_rendering.cleartype_params.cleartype_level", 100);
 //user_pref("gfx.font_rendering.cleartype_params.force_gdi_classic_for_families", "");
-//user_pref("gfx.font_rendering.cleartype_params.force_gdi_classic_max_size", 6);
 //user_pref("gfx.font_rendering.directwrite.use_gdi_table_loading", false);
 // Some users find these helpful:
     //user_pref("gfx.font_rendering.cleartype_params.gamma", 1750);
@@ -207,11 +204,17 @@ user_pref("browser.urlbar.trending.featureGate", false);
 
 // PREF: disable urlbar suggestions
 //user_pref("browser.urlbar.addons.featureGate", false); // [FF115+]
+//user_pref("browser.urlbar.fakespot.featureGate", false); // [FF130+] [DEFAULT: false]
 //user_pref("browser.urlbar.mdn.featureGate", false); // [FF117+] [HIDDEN PREF]
 //user_pref("browser.urlbar.pocket.featureGate", false); // [FF116+] [DEFAULT: false]
 //user_pref("browser.urlbar.weather.featureGate", false); // [FF108+] [DEFAULT: false]
 //user_pref("browser.urlbar.clipboard.featureGate", false); // [FF118+] [DEFAULT: true FF125+]
 //user_pref("browser.urlbar.yelp.featureGate", false); // [FF124+] [DEFAULT: false]
+
+// PREF: disable recent searches [FF120+]
+// [NOTE] Recent searches are cleared with history.
+// [1] https://support.mozilla.org/kb/search-suggestions-firefox
+//user_pref("browser.urlbar.recentsearches.featureGate", false);
 
 // PREF: disable tab-to-search [FF85+]
 // Alternatively, you can exclude on a per-engine basis by unchecking them in Options>Search
@@ -235,7 +238,7 @@ user_pref("browser.urlbar.trending.featureGate", false);
 // [1] https://bugzilla.mozilla.org/show_bug.cgi?id=1753933#c6
 // [2] https://developer.mozilla.org/en-US/docs/Web/Text_fragments
 // [3] https://web.dev/articles/text-fragments
-//user_pref("dom.text_fragments.enabled", true);
+//user_pref("dom.text_fragments.enabled", true); // [DEFAULT]
 
 /****************************************************************************
  * SECTION: AUTOPLAY                                                        *
@@ -284,8 +287,8 @@ user_pref("browser.urlbar.trending.featureGate", false);
 //user_pref("browser.newtabpage.activity-stream.showSearch", true); // NTP Web Search [DEFAULT]
 user_pref("browser.newtabpage.activity-stream.feeds.topsites", false); // Shortcuts
       //user_pref("browser.newtabpage.activity-stream.showSponsoredTopSites", false); // Shortcuts > Sponsored shortcuts [FF83+]
-//user_pref("browser.newtabpage.activity-stream.showWeather", false); // Weather [FF128+ NIGHTLY]
-    //user_pref("browser.newtabpage.activity-stream.system.showWeather", false); // Weather [FF128+ NIGHTLY]
+user_pref("browser.newtabpage.activity-stream.showWeather", false); // Weather [FF130+]
+    //user_pref("browser.newtabpage.activity-stream.system.showWeather", false); // hides Weather as an UI option
 user_pref("browser.newtabpage.activity-stream.feeds.section.topstories", false); // Recommended by Pocket
       //user_pref("browser.newtabpage.activity-stream.showSponsored", false); // Sponsored Stories [FF58+]  
 //user_pref("browser.newtabpage.activity-stream.feeds.section.highlights", false); // Recent Activity [DEFAULT]
@@ -338,7 +341,7 @@ user_pref("extensions.pocket.enabled", false);
 // [SETTING] General>Files and Applications>Applications>What should Firefox do with other files?
 // false=Save files
 // true=Ask whether to open or save files
-user_pref("browser.download.always_ask_before_handling_new_types", true);
+//user_pref("browser.download.always_ask_before_handling_new_types", true);
 
 // PREF: always ask where to download
 // [OPTIONAL HARDENING] Enforce user interaction for greater security.
@@ -535,7 +538,8 @@ user_pref("layout.word_select.eat_space_to_next_word", false);
  * SECTION: ACCESSIBILITY AND USABILITY                                     *
  ****************************************************************************/
 
-// PREF: disable Reader mode
+// PREF: disable Reader mode parse on load
+// Reader supposedly costs extra CPU after page load.
 // [TIP] Use about:reader?url=%s as a keyword to open links automatically in reader mode [1].
 // Firefox will not have to parse webpage for Reader when navigating.
 // Extremely minimal performance impact, if you disable.
@@ -583,9 +587,6 @@ user_pref("layout.word_select.eat_space_to_next_word", false);
 //user_pref("mousewheel.with_control.action", 3);
 //user_pref("mousewheel.with_meta.action", 3);
 
-// PREF: hide image placeholders
-//user_pref("browser.display.show_image_placeholders", false);
-
 // PREF: adjust the minimum tab width
 // Can be overridden by userChrome.css
 //user_pref("browser.tabs.tabMinWidth", 120); // default=76
@@ -619,7 +620,7 @@ user_pref("layout.word_select.eat_space_to_next_word", false);
 
 // PREF: JPEG XL image format [NIGHTLY]
 // May not affect anything on ESR/Stable channel [2].
-// [TEST] https://jpegxl.io/tutorials/firefox/#firefoxjpegxltutorial
+// [TEST] https://www.jpegxl.io/firefox#firefox-jpegxl-tutorial
 // [1] https://cloudinary.com/blog/the-case-for-jpeg-xl
 // [2] https://bugzilla.mozilla.org/show_bug.cgi?id=1539075#c51
 //user_pref("image.jxl.enabled", true);
